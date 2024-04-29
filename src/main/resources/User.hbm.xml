@@ -1,0 +1,17 @@
+<!--<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.neu.finalproject.pojo.User" table="User">
+        <id name="id" column="id" type="java.lang.Long">
+            <generator class="native"></generator>
+        </id>
+        <property name="email" column="email" type="string"></property>
+        <property name="password" column="password" type="string"></property>
+        <property name="orgId" column="org_id" type="java.lang.Long"></property>
+        <property name="teamId" column="team_id" type="java.lang.Long"></property>
+        <property name="createdOn" column="created_on" type="java.time.LocalDateTime"></property>
+        <property name="updatedOn" column="updated_on" type="java.time.LocalDateTime"></property>
+    </class>
+</hibernate-mapping>-->

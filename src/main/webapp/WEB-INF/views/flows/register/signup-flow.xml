@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+    
+    
+    <var name="user" class="com.neu.finalproject.pojo.User" />
+    <var name="org" class="com.neu.finalproject.pojo.Org" />
+    <var name="team" class="com.neu.finalproject.pojo.Team" />
+    
+    <on-start>
+        <evaluate expression="registerHandler.init()" result="flowScope.registerModel" />
+    </on-start>
+    
+    <!-- start state -->
+    <view-state id="orgDetails" view="org-registration-page" model="org">
+        <transition on="proceedToUserDetails" to="userDetails" />
+        <on-exit>
+            <evaluate expression="registerHandler.addOrg(flowScope.registerModel, org)" />
+        </on-exit>
+    </view-state>
+    
+    <view-state id="userDetails" view="admin-registration-page" model="user">
+        <transition on="proceedToTeamDetails" to="teamDetails" />
+        <transition on="returnToOrgDetails" to="orgDetails" />
+        <on-exit>
+            <evaluate expression="registerHandler.addUser(flowScope.registerModel, user)" />
+        </on-exit>
+    </view-state>
+    
+    <view-state id="teamDetails" view="team-registration-page" model="team">
+        <transition on="proceedToSubmit" to="submit" />
+        <transition on="returnToUserDetails" to="userDetails" />
+        <on-exit>
+            <evaluate expression="registerHandler.addTeam(flowScope.registerModel, team)" />
+        </on-exit>
+    </view-state>
+    
+    <action-state id="submit">
+        <evaluate expression="registerHandler.saveAll(flowScope.registerModel)" />
+        <transition on="success" to="success" />
+        <transition on="error" to="error" />
+    </action-state>
+    
+    <end-state id="error" view="user-registration-page" />
+    <end-state id="success" view="externalRedirect:/user/login"/>
+</flow>
